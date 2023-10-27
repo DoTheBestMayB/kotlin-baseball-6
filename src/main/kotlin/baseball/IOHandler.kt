@@ -7,7 +7,7 @@ import camp.nextstep.edu.missionutils.Console
 class IOHandler {
 
     private val validInputAfterGame = listOf("1", "2")
-    private val validInputWhileGame = (1..10).map { (it + ASCII_0_CODE).toChar() }
+    private val validInputWhileGame = (1..10).map { ASCII_ZERO + it }
 
     fun getInput(inputType: InputType): String {
         val input = Console.readLine()
@@ -36,6 +36,6 @@ class IOHandler {
     private fun checkInputValidAfterGame(input: String) = input in validInputAfterGame
 
     companion object {
-        private const val ASCII_0_CODE = 48
+        private const val ASCII_ZERO = '0'
     }
 }
