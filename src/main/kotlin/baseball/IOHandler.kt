@@ -30,14 +30,21 @@ class IOHandler {
     }
 
     private fun checkInputValidWhileGame(input: String): Boolean {
-        return input.filter {
+        if (input.length != ALLOWED_LENGTH_OF_INPUT) {
+            return false
+        }
+
+        val countOfUniqueNum = input.filter {
             it in validInputWhileGame
-        }.toSet().size == GameNumDeck.DIGIT
+        }.toSet().size
+
+        return countOfUniqueNum == GameNumDeck.DIGIT
     }
 
     private fun checkInputValidAfterGame(input: String) = input in validInputAfterGame
 
     companion object {
         private const val ASCII_ZERO = '0'
+        private const val ALLOWED_LENGTH_OF_INPUT = 3
     }
 }
