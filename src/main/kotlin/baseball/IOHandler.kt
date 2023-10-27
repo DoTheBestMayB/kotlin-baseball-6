@@ -14,9 +14,8 @@ class IOHandler {
     fun getInput(inputType: InputType): String {
         val input = Console.readLine()
 
-        if (checkInputValid(input, inputType).not()) {
-            throw IllegalArgumentException()
-        }
+        require(checkInputValid(input, inputType))
+
         return input
     }
 
