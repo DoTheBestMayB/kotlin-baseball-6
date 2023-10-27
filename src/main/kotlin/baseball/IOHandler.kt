@@ -1,12 +1,13 @@
 package baseball
 
+import baseball.data.GameContinuation
 import baseball.data.GameNumDeck
 import baseball.data.InputType
 import camp.nextstep.edu.missionutils.Console
 
 class IOHandler {
 
-    private val validInputAfterGame = listOf("1", "2")
+    private val validInputAfterGame = GameContinuation.entries.map { it.value.toString() }
     private val validInputWhileGame = (GameNumDeck.ALLOWED_MIN_NUM..GameNumDeck.ALLOWED_MAX_NUM).map {
         ASCII_ZERO + it
     }

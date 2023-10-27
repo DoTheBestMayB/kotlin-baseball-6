@@ -1,5 +1,6 @@
 package baseball
 
+import baseball.data.GameContinuation
 import baseball.data.GameNumDeck
 import baseball.data.InputType
 
@@ -11,16 +12,19 @@ class GameHandler(private val io: IOHandler) {
 
     fun start() {
         io.show(SENTENCE_FOR_START)
-        var isKeepPlay = YES
+        var isKeepPlay = GameContinuation.YES
 
-        while (isKeepPlay == YES) {
+        while (isKeepPlay == GameContinuation.YES) {
             reset()
             playGame()
 
             io.show(SENTENCE_FOR_AFTER_GAME)
-            isKeepPlay = io.getInput(InputType.AFTER_GAME).toInt()
+            isKeepPlay = checkKeepPlay()
         }
     }
+
+    private fun checkKeepPlay(): GameContinuation =
+        requireNotNull(GameContinuation.fromInt(io.getInput(InputType.AFTER_GAME).toInt()))
 
     private fun reset() {
         answer = GameNumDeck.generateRandomDeck()
@@ -89,7 +93,6 @@ class GameHandler(private val io: IOHandler) {
 
     companion object {
         private const val ASCII_0_CODE = 48
-        private const val YES = 1
         private const val MAX_STRIKE_COUNT = 3
         private const val INDEX_NOT_FOUND = -1
         private const val SENTENCE_FOR_START = "숫자 야구 게임을 시작합니다.\n"
