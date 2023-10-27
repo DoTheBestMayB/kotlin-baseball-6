@@ -71,15 +71,18 @@ class GameHandler(private val io: IOHandler) {
     }
 
     private fun showResult() {
-        if (ballCount == 0 && strikeCount == 0) {
-            io.show(SENTENCE_FOR_NOTHING_CORRECT)
-            return
-        }
+        val msg = mutableListOf<String>()
+
         if (ballCount != 0) {
-            io.show("$ballCount$BALL ")
+            msg.add("$ballCount$BALL")
         }
         if (strikeCount != 0) {
-            io.show("$strikeCount$STRIKE")
+            msg.add("$strikeCount$STRIKE")
+        }
+
+        when (val result = msg.joinToString(" ")) {
+            "" -> io.show(SENTENCE_FOR_NOTHING_CORRECT)
+            else -> io.show(result)
         }
         io.show(LINE_BREAK)
     }
@@ -91,7 +94,7 @@ class GameHandler(private val io: IOHandler) {
         private const val INDEX_NOT_FOUND = -1
         private const val SENTENCE_FOR_START = "숫자 야구 게임을 시작합니다.\n"
         private const val SENTENCE_FOR_INPUT = "숫자를 입력해주세요 : "
-        private const val SENTENCE_FOR_NOTHING_CORRECT = "낫싱\n"
+        private const val SENTENCE_FOR_NOTHING_CORRECT = "낫싱"
         private const val SENTENCE_FOR_CLOSING = "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n"
         private const val SENTENCE_FOR_AFTER_GAME = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
         private const val BALL = "볼"
