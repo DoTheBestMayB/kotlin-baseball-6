@@ -47,7 +47,7 @@ class GameHandler(private val io: IOHandler) {
         }
         showResult()
 
-        return strikeCount == 3
+        return strikeCount == MAX_STRIKE_COUNT
     }
 
     private fun splitInputToNumber(inputString: String): List<Int> {
@@ -65,7 +65,7 @@ class GameHandler(private val io: IOHandler) {
         val numIndexAtAnswer = answer.nums.indexOf(num)
         if (numIndexAtAnswer == index) {
             strikeCount++
-        } else if (numIndexAtAnswer != -1) {
+        } else if (numIndexAtAnswer != INDEX_NOT_FOUND) {
             ballCount++
         }
     }
@@ -76,21 +76,26 @@ class GameHandler(private val io: IOHandler) {
             return
         }
         if (ballCount != 0) {
-            io.show("${ballCount}볼 ")
+            io.show("$ballCount$BALL ")
         }
         if (strikeCount != 0) {
-            io.show("${strikeCount}스트라이크")
+            io.show("$strikeCount$STRIKE")
         }
-        io.show("\n")
+        io.show(LINE_BREAK)
     }
 
     companion object {
         private const val ASCII_0_CODE = 48
+        private const val YES = 1
+        private const val MAX_STRIKE_COUNT = 3
+        private const val INDEX_NOT_FOUND = -1
         private const val SENTENCE_FOR_START = "숫자 야구 게임을 시작합니다.\n"
         private const val SENTENCE_FOR_INPUT = "숫자를 입력해주세요 : "
         private const val SENTENCE_FOR_NOTHING_CORRECT = "낫싱\n"
         private const val SENTENCE_FOR_CLOSING = "3개의 숫자를 모두 맞히셨습니다! 게임 종료\n"
         private const val SENTENCE_FOR_AFTER_GAME = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n"
-        private const val YES = 1
+        private const val BALL = "볼"
+        private const val STRIKE = "스트라이크"
+        private const val LINE_BREAK = "\n"
     }
 }

@@ -7,7 +7,9 @@ import camp.nextstep.edu.missionutils.Console
 class IOHandler {
 
     private val validInputAfterGame = listOf("1", "2")
-    private val validInputWhileGame = (1..9).map { ASCII_ZERO + it }
+    private val validInputWhileGame = (GameNumDeck.ALLOWED_MIN_NUM..GameNumDeck.ALLOWED_MAX_NUM).map {
+        ASCII_ZERO + it
+    }
 
     fun getInput(inputType: InputType): String {
         val input = Console.readLine()
